@@ -1,50 +1,181 @@
 {
-    "name": "zero-to-prod/composer-package",
-    "description": "composer-package",
-    "license": "MIT",
-    "type": "library",
-    "keywords": ["zero-to-prod", "composer-package"],
-    "readme": "./README.md",
-    "time": "2025-01-14",
-    "authors": [
-        {
-            "name": "David Smith",
-            "email": "dave0016@gmail.com",
-            "homepage": "https://davidsmith.blog/",
-            "role": "maintainer"
-        }
-    ],
-    "homepage": "https://github.com/zero-to-prod/composer-package",
-    "support": {
-        "email": "dave0016@gmail.com",
-        "issues": "https://github.com/zero-to-prod/composer-package/issues",
-        "source": "https://github.com/zero-to-prod/composer-package",
-        "docs": "https://zero-to-prod.github.io/composer-package/",
-        "security": "https://github.com/zero-to-prod/composer-package/blob/main/SECURITY.md"
-    },
-    "funding": [
-        {
-            "type": "GitHub",
-            "url": "https://github.com/sponsors/zero-to-prod"
-        }
-    ],
-    "require": {
-        "php": ">=8.1",
-        "zero-to-prod/dock": "^1.0",
-        "zero-to-prod/data-model": "^81.9",
-        "zero-to-prod/data-model-helper": "^81.11"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "*"
-    },
-    "autoload": {
-        "psr-4": {
-            "Zerotoprod\\ComposerPackage\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
+  "name": "zero-to-prod/composer-package",
+  "description": "description",
+  "license": "license",
+  "type": "type",
+  "abandoned": false,
+  "version": "1.0.0",
+  "default-branch": true,
+  "non-feature-branches": [
+    "main"
+  ],
+  "keywords": [
+    "word1",
+    "word2"
+  ],
+  "readme": "readme",
+  "time": "2025-01-01",
+  "authors": [
+    {
+      "name": "name",
+      "email": "dave0016@gmail.com",
+      "homepage": "https://github.com/zero-to-prod/composer-package",
+      "role": "role"
     }
+  ],
+  "homepage": "https://github.com/zero-to-prod/composer-package",
+  "support": {
+    "email": "dave0016@gmail.com",
+    "issues": "https://github.com/zero-to-prod/composer-package",
+    "forum": "https://github.com/zero-to-prod/composer-package",
+    "wiki": "https://github.com/zero-to-prod/composer-package",
+    "irc": "irc://server/channel",
+    "chat": "https://github.com/zero-to-prod/composer-package",
+    "source": "https://github.com/zero-to-prod/composer-package",
+    "docs": "https://github.com/zero-to-prod/composer-package",
+    "rss": "https://github.com/zero-to-prod/composer-package",
+    "security": "https://github.com/zero-to-prod/composer-package"
+  },
+  "funding": [
+    {
+      "type": "type",
+      "url": "https://github.com/sponsors/zero-to-prod"
+    }
+  ],
+  "source": {
+    "type": "type",
+    "url": "url",
+    "reference": "reference",
+    "mirrors": [
+      "mirrors"
+    ]
+  },
+  "dist": {
+    "type": "type",
+    "url": "url",
+    "reference": "reference",
+    "shasum": "shasum",
+    "mirrors": [
+      "mirrors"
+    ]
+  },
+  "_comment": "comment",
+  "require": {
+    "monolog/monolog": "2.0.*"
+  },
+  "require-dev": {
+    "php": ">=8.1.0"
+  },
+  "replace": {
+    "php": ">=8.1.0"
+  },
+  "conflict": {
+    "php": "<=8.0.0"
+  },
+  "provide": {
+    "php": ">=8.1.0"
+  },
+  "suggest": {
+    "php": ">=8.1.0"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-0": {
+      "Vendor\\Package\\": "src/"
+    },
+    "psr-4": {
+      "Vendor\\Package\\": "src/"
+    },
+    "classmap": [
+      "."
+    ],
+    "files": [
+      "."
+    ],
+    "exclude-from-classmap": [
+      "."
+    ]
+  },
+  "autoload-dev": {
+    "psr-0": {
+      "Vendor\\Package\\": "src/"
+    },
+    "psr-4": {
+      "Vendor\\Package\\": "src/"
+    },
+    "classmap": [
+      "."
+    ],
+    "files": [
+      "."
+    ]
+  },
+  "target-dir": "/target/dir",
+  "include-path": [
+    "/target/dir"
+  ],
+  "bin": "./bin",
+  "archive": {
+    "name": "name",
+    "exclude": [
+      "./path/1",
+      "./path/2"
+    ]
+  },
+  "php-ext": {
+    "extension-name": "extension-name",
+    "priority": 10,
+    "support-zts": true,
+    "support-nts": true,
+    "build-path": "build-path",
+    "os-families": [
+      "bsd"
+    ],
+    "os-families-exclude": [
+      "bsd"
+    ],
+    "configure-options": [
+      {
+        "name": "name",
+        "needs-value": true,
+        "description": "description"
+      }
+    ]
+  },
+  "config": {
+    "platform": {
+      "php": "7.0.3",
+      "ext-something": "4.0.3"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "scripts": {
+    "pre-install-cmd": "pre-install-cmd",
+    "post-install-cmd": "post-install-cmd",
+    "pre-update-cmd": "pre-update-cmd",
+    "post-update-cmd": "post-update-cmd",
+    "pre-status-cmd": "pre-status-cmd",
+    "post-status-cmd": "post-status-cmd",
+    "pre-package-install": "pre-package-install",
+    "post-package-install": "post-package-install",
+    "pre-package-update": "pre-package-update",
+    "post-package-update": "post-package-update",
+    "pre-package-uninstall": "pre-package-uninstall",
+    "post-package-uninstall": "post-package-uninstall",
+    "pre-autoload-dump": "pre-autoload-dump",
+    "post-autoload-dump": "post-autoload-dump",
+    "post-root-package-install": "post-root-package-install",
+    "post-create-project-cmd": "post-create-project-cmd"
+  },
+  "scripts-descriptions": {
+    "key": "value"
+  },
+  "scripts-aliases": {
+    "key": ["value"]
+  }
 }
