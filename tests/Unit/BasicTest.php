@@ -5,10 +5,14 @@ namespace Tests\Unit;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use Zerotoprod\ComposerPackage\Archive;
+use Zerotoprod\ComposerPackage\ArtifactRepository;
+use Zerotoprod\ComposerPackage\ArtifactRepositoryTypeEnum;
 use Zerotoprod\ComposerPackage\AuthorsItem;
 use Zerotoprod\ComposerPackage\Autoload;
 use Zerotoprod\ComposerPackage\AutoloadDev;
 use Zerotoprod\ComposerPackage\ComposerPackage;
+use Zerotoprod\ComposerPackage\ComposerRepository;
+use Zerotoprod\ComposerPackage\ComposerRepositoryTypeEnum;
 use Zerotoprod\ComposerPackage\Config;
 use Zerotoprod\ComposerPackage\ConfigureOptionsItem;
 use Zerotoprod\ComposerPackage\Dist;
@@ -16,52 +20,61 @@ use Zerotoprod\ComposerPackage\FundingItem;
 use Zerotoprod\ComposerPackage\MinimumStabilityEnum;
 use Zerotoprod\ComposerPackage\OsFamiliesEnum;
 use Zerotoprod\ComposerPackage\OsFamiliesExcludeEnum;
+use Zerotoprod\ComposerPackage\PackageRepository;
+use Zerotoprod\ComposerPackage\PackageRepositoryTypeEnum;
+use Zerotoprod\ComposerPackage\PathRepository;
+use Zerotoprod\ComposerPackage\PathRepositoryOptions;
+use Zerotoprod\ComposerPackage\PathRepositoryTypeEnum;
+use Zerotoprod\ComposerPackage\PearRepository;
+use Zerotoprod\ComposerPackage\PearRepositoryTypeEnum;
 use Zerotoprod\ComposerPackage\PhpExt;
 use Zerotoprod\ComposerPackage\Scripts;
 use Zerotoprod\ComposerPackage\Source;
 use Zerotoprod\ComposerPackage\Support;
+use Zerotoprod\ComposerPackage\VcsRepository;
+use Zerotoprod\ComposerPackage\VcsRepositoryTypeEnum;
 
 class BasicTest extends TestCase
 {
     #[Test] public function all(): void
     {
         $ComposerPackage = ComposerPackage::from([
-            ComposerPackage::name => 'name',
+            ComposerPackage::name => 'zero-to-prod/composer-package',
             ComposerPackage::description => 'description',
             ComposerPackage::license => 'license',
             ComposerPackage::type => 'type',
             ComposerPackage::abandoned => false,
-            ComposerPackage::version => 'version',
+            ComposerPackage::version => '1.0.0',
             ComposerPackage::default_branch => true,
             ComposerPackage::non_feature_branches => ['main'],
             ComposerPackage::keywords => ['word1', 'word2'],
             ComposerPackage::readme => 'readme',
-            ComposerPackage::time => 'time',
+            ComposerPackage::time => '2025-01-01',
             ComposerPackage::authors => [
                 [
                     AuthorsItem::name => 'name',
-                    AuthorsItem::email => 'email',
-                    AuthorsItem::homepage => 'homepage',
+                    AuthorsItem::email => 'dave0016@gmail.com',
+                    AuthorsItem::homepage => 'https://github.com/zero-to-prod/composer-package',
                     AuthorsItem::role => 'role',
                 ]
             ],
-            ComposerPackage::homepage => 'homepage',
+            ComposerPackage::homepage => 'https://github.com/zero-to-prod/composer-package',
             ComposerPackage::support => [
-                Support::email => 'email',
-                Support::issues => 'issues',
-                Support::forum => 'forum',
-                Support::wiki => 'wiki',
-                Support::irc => 'irc',
-                Support::chat => 'chat',
-                Support::source => 'source',
-                Support::docs => 'docs',
-                Support::rss => 'rss',
-                Support::security => 'security',
+                Support::email => 'dave0016@gmail.com',
+                Support::issues => 'https://github.com/zero-to-prod/composer-package',
+                Support::forum => 'https://github.com/zero-to-prod/composer-package',
+                Support::wiki => 'https://github.com/zero-to-prod/composer-package',
+                Support::irc => 'irc://server/channel',
+                Support::chat => 'https://github.com/zero-to-prod/composer-package',
+                Support::source => 'https://github.com/zero-to-prod/composer-package',
+                Support::docs => 'https://github.com/zero-to-prod/composer-package',
+                Support::rss => 'https://github.com/zero-to-prod/composer-package',
+                Support::security => 'https://github.com/zero-to-prod/composer-package',
             ],
             ComposerPackage::funding => [
                 [
                     FundingItem::type => 'type',
-                    FundingItem::url => 'url',
+                    FundingItem::url => 'https://github.com/sponsors/zero-to-prod',
                 ]
             ],
             ComposerPackage::source => [
@@ -84,27 +97,90 @@ class BasicTest extends TestCase
             ComposerPackage::conflict => ['php' => '>=8.1.0'],
             ComposerPackage::provide => ['php' => '>=8.1.0'],
             ComposerPackage::suggest => ['php' => '>=8.1.0'],
+            ComposerPackage::repositories => [
+                [
+                    ComposerRepository::type => ComposerRepositoryTypeEnum::composer->value,
+                    ComposerRepository::url => 'https://github.com/zero-to-prod/composer-package',
+                    ComposerRepository::canonical => true,
+                    ComposerRepository::only => [ComposerRepository::only],
+                    ComposerRepository::exclude => [ComposerRepository::exclude],
+                    ComposerRepository::options => [ComposerRepository::options],
+                    ComposerRepository::allow_ssl_downgrade => true,
+                    ComposerRepository::force_lazy_providers => false,
+                ],
+                [
+                    VcsRepository::type => VcsRepositoryTypeEnum::vcs->value,
+                    VcsRepository::url => 'https://github.com/zero-to-prod/composer-package',
+                    VcsRepository::canonical => true,
+                    VcsRepository::only => [VcsRepository::only],
+                    VcsRepository::exclude => [VcsRepository::exclude],
+                    VcsRepository::no_api => true,
+                    VcsRepository::secure_http => true,
+                    VcsRepository::svn_cache_credentials => true,
+                    VcsRepository::trunk_path => true,
+                    VcsRepository::branches_path => true,
+                    VcsRepository::tags_path => true,
+                    VcsRepository::package_path => VcsRepository::package_path,
+                    VcsRepository::depot => VcsRepository::depot,
+                    VcsRepository::branch => VcsRepository::branch,
+                    VcsRepository::unique_perforce_client_name => VcsRepository::unique_perforce_client_name,
+                    VcsRepository::p4user => VcsRepository::p4user,
+                    VcsRepository::p4password => VcsRepository::p4password,
+                ],
+                [
+                    PathRepository::type => PathRepositoryTypeEnum::path->value,
+                    PathRepository::url => 'https://github.com/zero-to-prod/composer-package',
+                    PathRepository::canonical => true,
+                    PathRepository::only => [PathRepository::only],
+                    PathRepository::exclude => [PathRepository::exclude],
+                    PathRepository::options => [
+                        PathRepositoryOptions::symlink => PathRepositoryOptions::symlink,
+                    ]
+                ],
+                [
+                    ArtifactRepository::type => ArtifactRepositoryTypeEnum::artifact->value,
+                    ArtifactRepository::url => 'https://github.com/zero-to-prod/composer-package',
+                    ArtifactRepository::canonical => true,
+                    ArtifactRepository::only => [ArtifactRepository::only],
+                    ArtifactRepository::exclude => [ArtifactRepository::exclude],
+                ],
+                [
+                    PearRepository::type => PearRepositoryTypeEnum::pear->value,
+                    PearRepository::url => 'https://github.com/zero-to-prod/composer-package',
+                    PearRepository::canonical => true,
+                    PearRepository::only => [PearRepository::only],
+                    PearRepository::exclude => [PearRepository::exclude],
+                    PearRepository::vendor_alias => PearRepository::vendor_alias,
+                ],
+                [
+                    PackageRepository::type => PackageRepositoryTypeEnum::package->value,
+                    PackageRepository::canonical => true,
+                    PackageRepository::only => [PackageRepository::only],
+                    PackageRepository::exclude => [PackageRepository::exclude],
+                    PackageRepository::package => [PackageRepository::package],
+                ],
+            ],
             ComposerPackage::minimum_stability => 'stable',
             ComposerPackage::prefer_stable => true,
             ComposerPackage::autoload => [
                 Autoload::psr_0 => ["Vendor\\Package\\" => "src/"],
                 Autoload::psr_4 => ["Vendor\\Package\\" => "src/"],
-                Autoload::classmap => ['./path/1'],
-                Autoload::files => ['./path/1'],
-                Autoload::exclude_from_classmap => ['./path/1'],
+                Autoload::classmap => ['.'],
+                Autoload::files => ['.'],
+                Autoload::exclude_from_classmap => ['.'],
             ],
             ComposerPackage::autoload_dev => [
                 AutoloadDev::psr_0 => ["Vendor\\Package\\" => "src/"],
                 AutoloadDev::psr_4 => ["Vendor\\Package\\" => "src/"],
-                AutoloadDev::classmap => ['./path/1'],
-                AutoloadDev::files => ['./path/1'],
+                AutoloadDev::classmap => ['.'],
+                AutoloadDev::files => ['.'],
             ],
             ComposerPackage::target_dir => '/target/dir',
             ComposerPackage::include_path => ['/target/dir'],
             ComposerPackage::bin => './bin',
             ComposerPackage::archive => [
                 Archive::name => 'name',
-                Archive::exclude => ['./path/1', './path/2'],
+                Archive::exclude => ['.', './path/2'],
             ],
             ComposerPackage::php_ext => [
                 PhpExt::extension_name => 'extension_name',
@@ -127,7 +203,12 @@ class BasicTest extends TestCase
                 ]
             ],
             ComposerPackage::config => [
-                Config::platform => ['a']
+                Config::platform => ['php' => '7.0.3', 'ext-something' => '4.0.3'],
+                Config::audit => [
+                    'ignore' => [
+                        'CVE-1234' => 'The affected component is not in use.'
+                    ]
+                ]
             ],
             ComposerPackage::extra => [
                 'laravel' => [
@@ -156,40 +237,40 @@ class BasicTest extends TestCase
                 'key' => 'value'
             ],
             ComposerPackage::scripts_aliases => [
-                ['key' => 'value']
+                ['key' => ['value']]
             ]
         ]);
 
-        echo json_encode($ComposerPackage);
+        self::assertEquals(['CVE-1234' => 'The affected component is not in use.'], $ComposerPackage->config->audit['ignore']);
 
-        self::assertEquals('name', $ComposerPackage->name);
+        self::assertEquals('zero-to-prod/composer-package', $ComposerPackage->name);
         self::assertEquals('description', $ComposerPackage->description);
         self::assertEquals('license', $ComposerPackage->license);
         self::assertEquals('type', $ComposerPackage->type);
         self::assertFalse($ComposerPackage->abandoned);
-        self::assertEquals('version', $ComposerPackage->version);
+        self::assertEquals('1.0.0', $ComposerPackage->version);
         self::assertTrue($ComposerPackage->default_branch);
         self::assertEquals(['main'], $ComposerPackage->non_feature_branches);
         self::assertEquals(['word1', 'word2'], $ComposerPackage->keywords);
         self::assertEquals('readme', $ComposerPackage->readme);
-        self::assertEquals('time', $ComposerPackage->time);
+        self::assertEquals('2025-01-01', $ComposerPackage->time);
         self::assertEquals('name', $ComposerPackage->authors[0]->name);
-        self::assertEquals('email', $ComposerPackage->authors[0]->email);
-        self::assertEquals('homepage', $ComposerPackage->authors[0]->homepage);
+        self::assertEquals('dave0016@gmail.com', $ComposerPackage->authors[0]->email);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->authors[0]->homepage);
         self::assertEquals('role', $ComposerPackage->authors[0]->role);
-        self::assertEquals('homepage', $ComposerPackage->homepage);
-        self::assertEquals('email', $ComposerPackage->support->email);
-        self::assertEquals('issues', $ComposerPackage->support->issues);
-        self::assertEquals('forum', $ComposerPackage->support->forum);
-        self::assertEquals('wiki', $ComposerPackage->support->wiki);
-        self::assertEquals('irc', $ComposerPackage->support->irc);
-        self::assertEquals('chat', $ComposerPackage->support->chat);
-        self::assertEquals('source', $ComposerPackage->support->source);
-        self::assertEquals('docs', $ComposerPackage->support->docs);
-        self::assertEquals('rss', $ComposerPackage->support->rss);
-        self::assertEquals('security', $ComposerPackage->support->security);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->homepage);
+        self::assertEquals('dave0016@gmail.com', $ComposerPackage->support->email);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->support->issues);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->support->forum);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->support->wiki);
+        self::assertEquals('irc://server/channel', $ComposerPackage->support->irc);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->support->chat);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->support->source);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->support->docs);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->support->rss);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->support->security);
         self::assertEquals('type', $ComposerPackage->funding[0]->type);
-        self::assertEquals('url', $ComposerPackage->funding[0]->url);
+        self::assertEquals('https://github.com/sponsors/zero-to-prod', $ComposerPackage->funding[0]->url);
         self::assertEquals('type', $ComposerPackage->source->type);
         self::assertEquals('url', $ComposerPackage->source->url);
         self::assertEquals('reference', $ComposerPackage->source->reference);
@@ -206,22 +287,78 @@ class BasicTest extends TestCase
         self::assertEquals('>=8.1.0', $ComposerPackage->conflict['php']);
         self::assertEquals('>=8.1.0', $ComposerPackage->provide['php']);
         self::assertEquals('>=8.1.0', $ComposerPackage->suggest['php']);
+        self::assertInstanceOf(ComposerRepository::class, $ComposerPackage->repositories[0]);
+        self::assertEquals(ComposerRepositoryTypeEnum::composer, $ComposerPackage->repositories[0]->type);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->repositories[0]->url);
+        self::assertTrue($ComposerPackage->repositories[0]->canonical);
+        self::assertEquals([ComposerRepository::only], $ComposerPackage->repositories[0]->only);
+        self::assertEquals([ComposerRepository::exclude], $ComposerPackage->repositories[0]->exclude);
+        self::assertEquals([ComposerRepository::options], $ComposerPackage->repositories[0]->options);
+        self::assertTrue($ComposerPackage->repositories[0]->allow_ssl_downgrade);
+        self::assertFalse($ComposerPackage->repositories[0]->force_lazy_providers);
+        self::assertInstanceOf(VcsRepository::class, $ComposerPackage->repositories[1]);
+        self::assertEquals(VcsRepositoryTypeEnum::vcs, $ComposerPackage->repositories[1]->type);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->repositories[1]->url);
+        self::assertTrue($ComposerPackage->repositories[1]->canonical);
+        self::assertEquals([VcsRepository::only], $ComposerPackage->repositories[1]->only);
+        self::assertEquals([VcsRepository::exclude], $ComposerPackage->repositories[1]->exclude);
+        self::assertTrue($ComposerPackage->repositories[1]->no_api);
+        self::assertTrue($ComposerPackage->repositories[1]->secure_http);
+        self::assertTrue($ComposerPackage->repositories[1]->svn_cache_credentials);
+        self::assertTrue($ComposerPackage->repositories[1]->trunk_path);
+        self::assertTrue($ComposerPackage->repositories[1]->branches_path);
+        self::assertTrue($ComposerPackage->repositories[1]->tags_path);
+        self::assertEquals(VcsRepository::package_path, $ComposerPackage->repositories[1]->package_path);
+        self::assertEquals(VcsRepository::depot, $ComposerPackage->repositories[1]->depot);
+        self::assertEquals(VcsRepository::branch, $ComposerPackage->repositories[1]->branch);
+        self::assertEquals(VcsRepository::unique_perforce_client_name, $ComposerPackage->repositories[1]->unique_perforce_client_name);
+        self::assertEquals(VcsRepository::p4user, $ComposerPackage->repositories[1]->p4user);
+        self::assertEquals(VcsRepository::p4password, $ComposerPackage->repositories[1]->p4password);
+        self::assertInstanceOf(PathRepository::class, $ComposerPackage->repositories[2]);
+        self::assertEquals(PathRepositoryTypeEnum::path, $ComposerPackage->repositories[2]->type);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->repositories[2]->url);
+        self::assertTrue($ComposerPackage->repositories[2]->canonical);
+        self::assertEquals([PathRepository::only], $ComposerPackage->repositories[2]->only);
+        self::assertEquals([PathRepository::exclude], $ComposerPackage->repositories[2]->exclude);
+        self::assertEquals(PathRepositoryOptions::symlink, $ComposerPackage->repositories[2]->options->symlink);
+        self::assertInstanceOf(ArtifactRepository::class, $ComposerPackage->repositories[3]);
+        self::assertEquals(ArtifactRepositoryTypeEnum::artifact, $ComposerPackage->repositories[3]->type);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->repositories[3]->url);
+        self::assertTrue($ComposerPackage->repositories[3]->canonical);
+        self::assertEquals([ArtifactRepository::only], $ComposerPackage->repositories[3]->only);
+        self::assertEquals([ArtifactRepository::exclude], $ComposerPackage->repositories[3]->exclude);
+        self::assertInstanceOf(PearRepository::class, $ComposerPackage->repositories[4]);
+        self::assertEquals(PearRepositoryTypeEnum::pear, $ComposerPackage->repositories[4]->type);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->repositories[4]->url);
+        self::assertTrue($ComposerPackage->repositories[4]->canonical);
+        self::assertEquals([PearRepository::only], $ComposerPackage->repositories[4]->only);
+        self::assertEquals([PearRepository::exclude], $ComposerPackage->repositories[4]->exclude);
+        self::assertEquals(PearRepository::vendor_alias, $ComposerPackage->repositories[4]->vendor_alias);
+        self::assertInstanceOf(PackageRepository::class, $ComposerPackage->repositories[5]);
+        self::assertEquals(PackageRepositoryTypeEnum::package, $ComposerPackage->repositories[5]->type);
+        self::assertTrue($ComposerPackage->repositories[5]->canonical);
+        self::assertEquals([PackageRepository::only], $ComposerPackage->repositories[5]->only);
+        self::assertEquals([PackageRepository::exclude], $ComposerPackage->repositories[5]->exclude);
+        self::assertEquals([PackageRepository::package], $ComposerPackage->repositories[5]->package);
+        self::assertInstanceOf(ComposerRepository::class, $ComposerPackage->repositories[0]);
+        self::assertEquals(ComposerRepositoryTypeEnum::composer, $ComposerPackage->repositories[0]->type);
+        self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->repositories[0]->url);
         self::assertEquals(MinimumStabilityEnum::stable, $ComposerPackage->minimum_stability);
         self::assertTrue($ComposerPackage->prefer_stable);
         self::assertEquals('src/', $ComposerPackage->autoload->psr_0["Vendor\\Package\\"]);
         self::assertEquals('src/', $ComposerPackage->autoload->psr_4["Vendor\\Package\\"]);
-        self::assertEquals('./path/1', $ComposerPackage->autoload->classmap[0]);
-        self::assertEquals('./path/1', $ComposerPackage->autoload->files[0]);
-        self::assertEquals('./path/1', $ComposerPackage->autoload->exclude_from_classmap[0]);
+        self::assertEquals('.', $ComposerPackage->autoload->classmap[0]);
+        self::assertEquals('.', $ComposerPackage->autoload->files[0]);
+        self::assertEquals('.', $ComposerPackage->autoload->exclude_from_classmap[0]);
         self::assertEquals('src/', $ComposerPackage->autoload_dev->psr_0["Vendor\\Package\\"]);
         self::assertEquals('src/', $ComposerPackage->autoload_dev->psr_4["Vendor\\Package\\"]);
-        self::assertEquals('./path/1', $ComposerPackage->autoload_dev->classmap[0]);
-        self::assertEquals('./path/1', $ComposerPackage->autoload_dev->files[0]);
+        self::assertEquals('.', $ComposerPackage->autoload_dev->classmap[0]);
+        self::assertEquals('.', $ComposerPackage->autoload_dev->files[0]);
         self::assertEquals('/target/dir', $ComposerPackage->target_dir);
         self::assertEquals(['/target/dir'], $ComposerPackage->include_path);
         self::assertEquals('./bin', $ComposerPackage->bin);
         self::assertEquals('name', $ComposerPackage->archive->name);
-        self::assertEquals(['./path/1', './path/2'], $ComposerPackage->archive->exclude);
+        self::assertEquals(['.', './path/2'], $ComposerPackage->archive->exclude);
         self::assertEquals('extension_name', $ComposerPackage->php_ext->extension_name);
         self::assertEquals(10, $ComposerPackage->php_ext->priority);
         self::assertTrue($ComposerPackage->php_ext->support_zts);
@@ -232,6 +369,7 @@ class BasicTest extends TestCase
         self::assertEquals('name', $ComposerPackage->php_ext->configure_options[0]->name);
         self::assertEquals('description', $ComposerPackage->php_ext->configure_options[0]->description);
         self::assertTrue($ComposerPackage->php_ext->configure_options[0]->needs_value);
+        self::assertEquals(['php' => '7.0.3', 'ext-something' => '4.0.3'], $ComposerPackage->config->platform);
         self::assertEquals([], $ComposerPackage->extra['laravel']['dont-discover']);
         self::assertEquals(Scripts::pre_install_cmd, $ComposerPackage->scripts->pre_install_cmd);
         self::assertEquals(Scripts::post_install_cmd, $ComposerPackage->scripts->post_install_cmd);
@@ -250,7 +388,7 @@ class BasicTest extends TestCase
         self::assertEquals(Scripts::post_root_package_install, $ComposerPackage->scripts->post_root_package_install);
         self::assertEquals(Scripts::post_create_project_cmd, $ComposerPackage->scripts->post_create_project_cmd);
         self::assertEquals('value', $ComposerPackage->scripts_descriptions['key']);
-        self::assertEquals(['key' => 'value'], $ComposerPackage->scripts_aliases[0]);
+        self::assertEquals(['key' => ['value']], $ComposerPackage->scripts_aliases[0]);
     }
 
     #[Test] public function licence_array(): void
