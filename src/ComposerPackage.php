@@ -286,8 +286,46 @@ class ComposerPackage
     public array $provide;
     /** This is an object of package name (keys) and descriptions (values) that this package suggests work well with it (this will be suggested to the user during installation). */
     public array $suggest;
-    /** A set of additional repositories where packages can be found. */
-    public object|array $repositories;
+    /**
+     * @var array<int, ComposerRepository|VcsRepository|PathRepository|ArtifactRepository|PearRepository|PackageRepository>|null $repositories
+     *
+     * A set of additional repositories where packages can be found.
+     */
+    #[Describe(['cast' => [self::class, 'repositories']])]
+    public null|array $repositories;
+
+    public static function repositories($value): ?array
+    {
+        if (!isset($value[0]['type'])) {
+            return null;
+        }
+
+        $repos = [];
+
+        foreach ($value as $repo) {
+            $repos[] = match ($repo['type']) {
+                ComposerRepositoryTypeEnum::composer->value => ComposerRepository::from($repo),
+                VcsRepositoryTypeEnum::vcs->value,
+                VcsRepositoryTypeEnum::github->value,
+                VcsRepositoryTypeEnum::git->value,
+                VcsRepositoryTypeEnum::gitlab->value,
+                VcsRepositoryTypeEnum::bitbucket->value,
+                VcsRepositoryTypeEnum::git_bitbucket->value,
+                VcsRepositoryTypeEnum::hg->value,
+                VcsRepositoryTypeEnum::fossil->value,
+                VcsRepositoryTypeEnum::perforce->value,
+                VcsRepositoryTypeEnum::svn->value => VcsRepository::from($repo),
+                PathRepositoryTypeEnum::path->value => PathRepository::from($repo),
+                ArtifactRepositoryTypeEnum::artifact->value => ArtifactRepository::from($repo),
+                PearRepositoryTypeEnum::pear->value => PearRepository::from($repo),
+                PackageRepositoryTypeEnum::package->value => PackageRepository::from($repo),
+                default => $repo,
+            };
+        }
+
+        return $repos;
+    }
+
     /** The minimum stability the packages must have to be install-able. Possible values are: dev, alpha, beta, RC, stable. */
     #[Describe(['from' => self::minimum_stability])]
     public MinimumStabilityEnum $minimum_stability;
