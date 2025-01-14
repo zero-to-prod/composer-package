@@ -347,7 +347,7 @@ class Config
     #[Describe(['from' => self::preferred_install])]
     public string|object $preferred_install;
     /** Security audit configuration options */
-    public Audit $audit;
+    public array $audit;
     /** Composer allows repositories to define a notification URL, so that they get notified whenever a package from that repository is installed. This option allows you to disable that behaviour, defaults to true. */
     #[Describe(['from' => self::notify_on_install])]
     public bool $notify_on_install;
