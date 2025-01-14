@@ -21,7 +21,7 @@ class PearRepository
     public const exclude = 'exclude';
     /** @see $vendor_alias */
     public const vendor_alias = 'vendor-alias';
-    public TypeEnum $type;
+    public PearRepositoryTypeEnum $type;
     public string $url;
     public bool $canonical;
     public array $only;
