@@ -43,7 +43,7 @@ class VcsRepository
     public const p4user = 'p4user';
     /** @see $p4password */
     public const p4password = 'p4password';
-    public TypeEnum $type;
+    public VcsRepositoryTypeEnum $type;
     public string $url;
     public bool $canonical;
     public array $only;
