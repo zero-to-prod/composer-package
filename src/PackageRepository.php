@@ -18,7 +18,7 @@ class PackageRepository
     public const exclude = 'exclude';
     /** @see $package */
     public const package = 'package';
-    public TypeEnum $type;
+    public PackageRepositoryTypeEnum $type;
     public bool $canonical;
     public array $only;
     public array $exclude;
