@@ -18,7 +18,7 @@ class ArtifactRepository
     public const only = 'only';
     /** @see $exclude */
     public const exclude = 'exclude';
-    public TypeEnum $type;
+    public ArtifactRepositoryTypeEnum $type;
     public string $url;
     public bool $canonical;
     public array $only;
