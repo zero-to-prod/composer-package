@@ -22,11 +22,11 @@ class Archive
      */
     public const exclude = 'exclude';
     /** A base name for archive. */
-    public string $name;
+    public null|string $name = null;
     /**
      * A list of patterns for paths to exclude or include if prefixed with an exclamation mark.
      *
-     * @var array
+     * @var null|array
      */
-    public array $exclude;
+    public null|array $exclude = null;
 }
