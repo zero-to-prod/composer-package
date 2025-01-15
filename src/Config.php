@@ -14,7 +14,7 @@ class Config
     use DataModelHelper;
 
     /**
-     * This is an object of package name (keys) and version (values) that will be used to mock the platform packages on this machine, the version can be set to false to make it appear like the package is not present.
+     * This is an object of package name (keys) and version (values) that will be used to mock the platform packages on this machine, the version can be set to `false` to make it appear like the package is not present.
      *
      * @see $platform
      */
@@ -26,7 +26,7 @@ class Config
      */
     public const allow_plugins = 'allow-plugins';
     /**
-     * The timeout in seconds for process executions, defaults to 300 (5mins).
+     * The timeout in seconds for process executions, defaults to 300 (5 minutes).
      *
      * @see $process_timeout
      */
@@ -44,7 +44,7 @@ class Config
      */
     public const use_parent_dir = 'use-parent-dir';
     /**
-     * The install method Composer will prefer to use, defaults to auto and can be any of source, dist, auto, or an object of {"pattern": "preference"}.
+     * The `install` method Composer will prefer to use, defaults to auto and can be any of source, dist, auto, or an object of {"pattern": "preference"}.
      *
      * @see $preferred_install
      */
@@ -110,7 +110,7 @@ class Config
      */
     public const secure_http = 'secure-http';
     /**
-     * A list of domains which should be trusted/marked as using a secure Subversion/SVN transport. By default svn:// protocol is seen as insecure and will throw. This is a better/safer alternative to disabling `secure-http` altogether.
+     * A list of domains which should be trusted/marked as using a secure Subversion/SVN transport. By default, svn:// protocol is seen as insecure and will throw. This is a better/safer alternative to disabling `secure-http` altogether.
      *
      * @see $secure_svn_domains
      */
@@ -302,7 +302,7 @@ class Config
      */
     public const sort_packages = 'sort-packages';
     /**
-     * Defaults to true. If set to false, Composer will not create a composer.lock file.
+     * Defaults to true. If set to false, Composer will not create a `composer.lock` file.
      *
      * @see $lock
      */
@@ -320,13 +320,13 @@ class Config
      */
     public const bump_after_update = 'bump-after-update';
     /**
-     * Defaults to false. If set to true, Composer will allow install when lock file is not up to date with the latest changes in composer.json.
+     * Defaults to false. If set to true, Composer will allow `install` when lock file is not up to date with the latest changes in composer.json.
      *
      * @see $allow_missing_requirements
      */
     public const allow_missing_requirements = 'allow-missing-requirements';
     /**
-     * This is an object of package name (keys) and version (values) that will be used to mock the platform packages on this machine, the version can be set to false to make it appear like the package is not present.
+     * This is an object of package name (keys) and version (values) that will be used to mock the platform packages on this machine, the version can be set to `false` to make it appear like the package is not present.
      *
      * @var null|array
      */
@@ -338,7 +338,7 @@ class Config
      */
     #[Describe(['from' => self::allow_plugins])]
     public null|array|bool $allow_plugins = null;
-    /** The timeout in seconds for process executions, defaults to 300 (5mins). */
+    /** The timeout in seconds for process executions, defaults to 300 (5 minutes). */
     #[Describe(['from' => self::process_timeout])]
     public null|int $process_timeout = null;
     /** If true, the Composer autoloader will also look for classes in the PHP include path. */
@@ -350,7 +350,7 @@ class Config
     /**
      * @var null|array<string, bool>|bool $preferred_install
      *
-     * The install method Composer will prefer to use, defaults to auto and can be any of source, dist, auto, or an object of {"pattern": "preference"}.
+     * The `install` method Composer will prefer to use, defaults to auto and can be any of source, dist, auto, or an object of {"pattern": "preference"}.
      */
     #[Describe(['from' => self::preferred_install])]
     public null|string|array $preferred_install = null;
@@ -393,7 +393,7 @@ class Config
     #[Describe(['from' => self::secure_http])]
     public null|bool $secure_http = null;
     /**
-     * A list of domains which should be trusted/marked as using a secure Subversion/SVN transport. By default svn:// protocol is seen as insecure and will throw. This is a better/safer alternative to disabling `secure-http` altogether.
+     * A list of domains which should be trusted/marked as using a secure Subversion/SVN transport. By default, svn:// protocol is seen as insecure and will throw. This is a better/safer alternative to disabling `secure-http` altogether.
      *
      * @var null|array<int, string>
      */
@@ -514,7 +514,7 @@ class Config
     /** Defaults to false. If set to true, Composer will sort packages when adding/updating a new dependency. */
     #[Describe(['from' => self::sort_packages])]
     public null|bool $sort_packages = null;
-    /** Defaults to true. If set to false, Composer will not create a composer.lock file. */
+    /** Defaults to true. If set to false, Composer will not create a `composer.lock` file. */
     public null|bool $lock = null;
     /** Defaults to "php-only" which checks only the PHP version. Setting to true will also check the presence of required PHP extensions. If set to false, Composer will not create and require a platform_check.php file as part of the autoloader bootstrap. */
     #[Describe(['from' => self::platform_check])]
@@ -522,7 +522,7 @@ class Config
     /** Defaults to false and can be any of true, false, "dev"` or "no-dev"`. If set to true, Composer will run the bump command after running the update command. If set to "dev" or "no-dev" then only the corresponding dependencies will be bumped. */
     #[Describe(['from' => self::bump_after_update])]
     public null|string|bool $bump_after_update = null;
-    /** Defaults to false. If set to true, Composer will allow install when lock file is not up to date with the latest changes in composer.json. */
+    /** Defaults to false. If set to true, Composer will allow `install` when lock file is not up to date with the latest changes in composer.json. */
     #[Describe(['from' => self::allow_missing_requirements])]
     public null|bool $allow_missing_requirements = null;
 }
