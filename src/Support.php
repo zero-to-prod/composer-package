@@ -69,23 +69,23 @@ class Support
      */
     public const security = 'security';
     /** Email address for support. */
-    public string $email;
+    public null|string $email = null;
     /** URL to the issue tracker. */
-    public string $issues;
+    public null|string $issues = null;
     /** URL to the forum. */
-    public string $forum;
+    public null|string $forum = null;
     /** URL to the wiki. */
-    public string $wiki;
+    public null|string $wiki = null;
     /** IRC channel for support, as irc://server/channel. */
-    public string $irc;
+    public null|string $irc = null;
     /** URL to the support chat. */
-    public string $chat;
+    public null|string $chat = null;
     /** URL to browse or download the sources. */
-    public string $source;
+    public null|string $source = null;
     /** URL to the documentation. */
-    public string $docs;
+    public null|string $docs = null;
     /** URL to the RSS feed. */
-    public string $rss;
+    public null|string $rss = null;
     /** URL to the vulnerability disclosure policy (VDP). */
-    public string $security;
+    public null|string $security = null;
 }
