@@ -11,6 +11,7 @@ use Zerotoprod\ComposerPackage\AuthorsItem;
 use Zerotoprod\ComposerPackage\Autoload;
 use Zerotoprod\ComposerPackage\AutoloadDev;
 use Zerotoprod\ComposerPackage\BinCompatEnum;
+use Zerotoprod\ComposerPackage\BitbucketOauth;
 use Zerotoprod\ComposerPackage\ComposerPackage;
 use Zerotoprod\ComposerPackage\ComposerRepository;
 use Zerotoprod\ComposerPackage\ComposerRepositoryTypeEnum;
@@ -37,9 +38,9 @@ use Zerotoprod\ComposerPackage\Support;
 use Zerotoprod\ComposerPackage\VcsRepository;
 use Zerotoprod\ComposerPackage\VcsRepositoryTypeEnum;
 
-class BasicTest extends TestCase
+class ComposerPackageTest extends TestCase
 {
-    #[Test] public function all(): void
+    #[Test] public function transforms_to_composer_package(): void
     {
         $ComposerPackage = ComposerPackage::from([
             ComposerPackage::name => 'zero-to-prod/composer-package',
@@ -258,7 +259,23 @@ class BasicTest extends TestCase
                 Config::github_domains => ['https://example.org'],
                 Config::github_expose_hostname => true,
                 Config::gitlab_domains => ['https://example.org'],
-
+                Config::bitbucket_oauth => [
+                    'bitbucket.org' => [
+                        BitbucketOauth::consumer_key => BitbucketOauth::consumer_key,
+                        BitbucketOauth::consumer_secret => BitbucketOauth::consumer_secret,
+                        BitbucketOauth::access_token => BitbucketOauth::access_token,
+                        BitbucketOauth::access_token_expiration => 1,
+                    ],
+                ],
+                Config::use_github_api => true,
+                Config::archive_format => Config::archive_format,
+                Config::archive_dir => Config::archive_dir,
+                Config::htaccess_protect => true,
+                Config::sort_packages => true,
+                Config::lock => true,
+                Config::platform_check => true,
+                Config::bump_after_update => true,
+                Config::allow_missing_requirements => true,
             ],
             ComposerPackage::extra => [
                 'laravel' => [
@@ -335,8 +352,20 @@ class BasicTest extends TestCase
         self::assertEquals(['https://example.org'], $ComposerPackage->config->github_domains);
         self::assertTrue($ComposerPackage->config->github_expose_hostname);
         self::assertEquals(['https://example.org'], $ComposerPackage->config->gitlab_domains);
-//        self::assertEquals(['https://example.org'], $ComposerPackage->config->bitbucket_oauth);
-
+        self::assertInstanceOf(BitbucketOauth::class, $ComposerPackage->config->bitbucket_oauth['bitbucket.org']);
+        self::assertEquals(BitbucketOauth::consumer_key, $ComposerPackage->config->bitbucket_oauth['bitbucket.org']->consumer_key);
+        self::assertEquals(BitbucketOauth::consumer_secret, $ComposerPackage->config->bitbucket_oauth['bitbucket.org']->consumer_secret);
+        self::assertEquals(BitbucketOauth::access_token, $ComposerPackage->config->bitbucket_oauth['bitbucket.org']->access_token);
+        self::assertEquals(1, $ComposerPackage->config->bitbucket_oauth['bitbucket.org']->access_token_expiration);
+        self::assertTrue($ComposerPackage->config->use_github_api);
+        self::assertEquals(Config::archive_format, $ComposerPackage->config->archive_format);
+        self::assertEquals(Config::archive_dir, $ComposerPackage->config->archive_dir);
+        self::assertTrue($ComposerPackage->config->htaccess_protect);
+        self::assertTrue($ComposerPackage->config->sort_packages);
+        self::assertTrue($ComposerPackage->config->lock);
+        self::assertTrue($ComposerPackage->config->platform_check);
+        self::assertTrue($ComposerPackage->config->bump_after_update);
+        self::assertTrue($ComposerPackage->config->allow_missing_requirements);
 
         self::assertEquals('zero-to-prod/composer-package', $ComposerPackage->name);
         self::assertEquals('description', $ComposerPackage->description);
