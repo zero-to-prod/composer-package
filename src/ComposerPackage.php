@@ -9,6 +9,7 @@ use Zerotoprod\DataModelHelper\DataModelHelper;
 class ComposerPackage
 {
     use DataModel;
+    use DataModelHelper;
 
     /**
      * Package name, including 'vendor-name/' prefix.
@@ -221,80 +222,80 @@ class ComposerPackage
      */
     public const scripts_aliases = 'scripts-aliases';
     /** Package name, including 'vendor-name/' prefix. */
-    public string $name;
+    public null|string $name = null;
     /** Short package description. */
-    public string $description;
+    public null|string $description = null;
     /** License name. Or an array of license names. */
-    public string|array $license;
+    public null|string|array $license = null;
     /** Package type, either 'library' for common packages, 'composer-plugin' for plugins, 'metapackage' for empty packages, or a custom type ([a-z0-9-]+) defined by whatever project this package applies to. */
-    public string $type;
+    public null|string $type = null;
     /** Indicates whether this package has been abandoned, it can be boolean or a package name/URL pointing to a recommended alternative. Defaults to false. */
-    public bool|string $abandoned;
+    public null|bool|string $abandoned = null;
     /** Package version, see https://getcomposer.org/doc/04-schema.md#version for more info on valid schemes. */
-    public string $version;
+    public null|string $version = null;
     /** Internal use only, do not specify this in composer.json. Indicates whether this version is the default branch of the linked VCS repository. Defaults to false. */
     #[Describe(['from' => self::default_branch])]
-    public bool $default_branch;
+    public null|bool $default_branch = null;
     /**
      * A set of string or regex patterns for non-numeric branch names that will not be handled as feature branches.
      *
      * @var array<int, string>
      */
     #[Describe(['from' => self::non_feature_branches])]
-    public array $non_feature_branches;
+    public null|array $non_feature_branches = null;
     /**
      *  A tag/keyword that this package relates to.
      *
      * @var array<int, string>
      */
-    public array $keywords;
+    public null|array $keywords = null;
     /** Relative path to the readme document. */
-    public string $readme;
+    public null|string $readme = null;
     /** Package release date, in 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS' or 'YYYY-MM-DDTHH:MM:SSZ' format. */
-    public string $time;
+    public null|string $time = null;
     /**
      * List of authors that contributed to the package. This is typically the main maintainers, not the full list.
      *
      * @var array<int|string, AuthorsItem>
      */
-    #[Describe(['cast' => [DataModelHelper::class, 'mapOf'], 'type' => AuthorsItem::class])]
-    public array $authors;
+    #[Describe(['cast' => [self::class, 'mapOf'], 'type' => AuthorsItem::class])]
+    public array $authors = [];
     /** Homepage URL for the project. */
-    public string $homepage;
-    public Support $support;
+    public null|string $homepage = null;
+    public null|Support $support = null;
     /**
      * A list of options to fund the development and maintenance of the package.
      *
      * @var array<int, FundingItem>
      */
-    #[Describe(['cast' => [DataModelHelper::class, 'mapOf'], 'type' => FundingItem::class])]
-    public array $funding;
-    public Source $source;
-    public Dist $dist;
+    #[Describe(['cast' => [self::class, 'mapOf'], 'type' => FundingItem::class])]
+    public array $funding = [];
+    public null|Source $source = null;
+    public null|Dist $dist = null;
     /** A key to store comments in */
-    public array|string $_comment;
+    public null|array|string $_comment = null;
     /** This is an object of package name (keys) and version constraints (values) that are required to run this package. */
-    public array $require;
+    public null|array $require = null;
     /** This is an object of package name (keys) and version constraints (values) that this package requires for developing it (testing tools and such). */
     #[Describe(['from' => self::require_dev])]
-    public array $require_dev;
+    public null|array $require_dev = null;
     /** This is an object of package name (keys) and version constraints (values) that can be replaced by this package. */
-    public array $replace;
+    public null|array $replace = null;
     /** This is an object of package name (keys) and version constraints (values) that conflict with this package. */
-    public array $conflict;
+    public null|array $conflict = null;
     /** This is an object of package name (keys) and version constraints (values) that this package provides in addition to this package's name. */
-    public array $provide;
+    public null|array $provide = null;
     /** This is an object of package name (keys) and descriptions (values) that this package suggests work well with it (this will be suggested to the user during installation). */
-    public array $suggest;
+    public null|array $suggest = null;
     /**
      * @var array<int, ComposerRepository|VcsRepository|PathRepository|ArtifactRepository|PearRepository|PackageRepository>|null $repositories
      *
      * A set of additional repositories where packages can be found.
      */
     #[Describe(['cast' => [self::class, 'repositories']])]
-    public null|array $repositories;
+    public null|array $repositories = null;
 
-    public static function repositories($value): ?array
+    public static function repositories($value): null|array
     {
         if (!isset($value[0]['type'])) {
             return null;
@@ -328,42 +329,42 @@ class ComposerPackage
 
     /** The minimum stability the packages must have to be install-able. Possible values are: dev, alpha, beta, RC, stable. */
     #[Describe(['from' => self::minimum_stability])]
-    public MinimumStabilityEnum $minimum_stability;
+    public null|MinimumStabilityEnum $minimum_stability = null;
     /** If set to true, stable packages will be preferred to dev packages when possible, even if the minimum-stability allows unstable packages. */
     #[Describe(['from' => self::prefer_stable])]
-    public bool $prefer_stable;
+    public null|bool $prefer_stable = null;
     /** Description of how the package can be autoloaded. */
-    public Autoload $autoload;
+    public null|Autoload $autoload = null;
     /** Description of additional autoload rules for development purpose (eg. a test suite). */
     #[Describe(['from' => self::autoload_dev])]
-    public AutoloadDev $autoload_dev;
+    public null|AutoloadDev $autoload_dev = null;
     /** DEPRECATED: Forces the package to be installed into the given subdirectory path. This is used for autoloading PSR-0 packages that do not contain their full path. Use forward slashes for cross-platform compatibility. */
     #[Describe(['from' => self::target_dir])]
-    public string $target_dir;
+    public null|string $target_dir = null;
     /**
      * DEPRECATED: A list of directories which should get added to PHP's include path. This is only present to support legacy projects, and all new code should preferably use autoloading.
      *
      * @var array<int, string>
      */
     #[Describe(['from' => self::include_path])]
-    public array $include_path;
+    public null|array $include_path = null;
     /** A set of files, or a single file, that should be treated as binaries and symlinked into bin-dir (from config). */
-    public string|array $bin;
+    public null|string|array $bin = null;
     /** Options for creating package archives for distribution. */
-    public Archive $archive;
+    public null|Archive $archive = null;
     /** Settings for PHP extension packages. */
     #[Describe(['from' => self::php_ext])]
-    public PhpExt $php_ext;
+    public null|PhpExt $php_ext = null;
     /** Composer options. */
-    public Config $config;
+    public null|Config $config = null;
     /** Arbitrary extra data that can be used by plugins, for example, package of type composer-plugin may have a 'class' key defining an installer class name. */
-    public object|array $extra;
+    public null|array $extra = null;
     /** Script listeners that will be executed before/after some events. */
-    public Scripts $scripts;
+    public null|Scripts $scripts = null;
     /** Descriptions for custom commands, shown in console help. */
     #[Describe(['from' => self::scripts_descriptions])]
-    public array $scripts_descriptions;
+    public null|array $scripts_descriptions = null;
     /** Aliases for custom commands. */
     #[Describe(['from' => self::scripts_aliases])]
-    public array $scripts_aliases;
+    public null|array $scripts_aliases = null;
 }
