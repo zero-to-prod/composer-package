@@ -4,5 +4,5 @@ namespace Zerotoprod\ComposerPackage;
 
 enum ArtifactRepositoryTypeEnum: string
 {
-    case artifact = "artifact";
+    case artifact = 'artifact';
 }
