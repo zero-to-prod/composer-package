@@ -16,8 +16,8 @@ class Source
     public const reference = 'reference';
     /** @see $mirrors */
     public const mirrors = 'mirrors';
-    public string $type;
-    public string $url;
-    public string $reference;
-    public array $mirrors;
+    public null|string $type = null;
+    public null|string $url = null;
+    public null|string $reference = null;
+    public null|array $mirrors = null;
 }
