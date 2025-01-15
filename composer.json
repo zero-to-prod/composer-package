@@ -30,7 +30,6 @@
     ],
     "require": {
         "php": ">=8.1",
-        "zero-to-prod/dock": "^1.0",
         "zero-to-prod/data-model": "^81.9",
         "zero-to-prod/data-model-helper": "^81.11"
     },
