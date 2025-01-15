@@ -37,27 +37,27 @@ class AutoloadDev
     /**
      * This is an object of namespaces (keys) and the directories they can be found into (values, can be arrays of paths) by the autoloader.
      *
-     * @var array
+     * @var null|array
      */
     #[Describe(['from' => self::psr_0])]
-    public array $psr_0;
+    public null|array $psr_0 = null;
     /**
      * This is an object of namespaces (keys) and the PSR-4 directories they can map to (values, can be arrays of paths) by the autoloader.
      *
-     * @var array
+     * @var null|array
      */
     #[Describe(['from' => self::psr_4])]
-    public array $psr_4;
+    public null|array $psr_4 = null;
     /**
      * This is an array of paths that contain classes to be included in the class-map generation process.
      *
-     * @var array
+     * @var null|array
      */
-    public array $classmap;
+    public null|array $classmap = null;
     /**
      * This is an array of files that are always required on every request.
      *
-     * @var array
+     * @var null|array
      */
-    public array $files;
+    public null|array $files = null;
 }
