@@ -3,7 +3,6 @@
 namespace Zerotoprod\ComposerPackage;
 
 use Zerotoprod\DataModel\DataModel;
-use Zerotoprod\DataModel\Describe;
 
 class PathRepositoryOptions
 {
@@ -11,5 +10,5 @@ class PathRepositoryOptions
 
     /** @see $symlink */
     public const symlink = 'symlink';
-    public ?bool $symlink = null;
+    public null|bool $symlink = null;
 }
