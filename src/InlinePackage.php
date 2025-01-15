@@ -72,37 +72,37 @@ class InlinePackage
     /** @see $dist */
     public const dist = 'dist';
     /** Package name, including 'vendor-name/' prefix. */
-    public string $name;
-    public string $type;
+    public null|string $name;
+    public null|string $type;
     /** DEPRECATED: Forces the package to be installed into the given subdirectory path. This is used for autoloading PSR-0 packages that do not contain their full path. Use forward slashes for cross-platform compatibility. */
     #[Describe(['from' => self::target_dir])]
-    public string $target_dir;
-    public string $description;
-    public array $keywords;
-    public string $homepage;
-    public string $version;
-    public string $time;
-    public string|array $license;
-    public $authors;
-    public array $require;
-    public array $replace;
-    public array $conflict;
-    public array $provide;
+    public null|string $target_dir;
+    public null|string $description;
+    public null|array $keywords;
+    public null|string $homepage;
+    public null|string $version;
+    public null|string $time;
+    public null|string|array $license;
+    public null|array $authors;
+    public null|array $require;
+    public null|array $replace;
+    public null|array $conflict;
+    public null|array $provide;
     #[Describe(['from' => self::require_dev])]
-    public array $require_dev;
-    public array $suggest;
-    public object|array $extra;
-    public $autoload;
-    public Archive $archive;
+    public null|array $require_dev;
+    public null|array $suggest;
+    public null|array $extra;
+    public null|Autoload $autoload;
+    public null|Archive $archive;
     /** A set of files, or a single file, that should be treated as binaries and symlinked into bin-dir (from config). */
-    public string|array $bin;
+    public null|string|array $bin;
     /**
      * DEPRECATED: A list of directories which should get added to PHP's include path. This is only present to support legacy projects, and all new code should preferably use autoloading.
      *
      * @var array<int, string>
      */
     #[Describe(['from' => self::include_path])]
-    public array $include_path;
-    public $source;
-    public $dist;
+    public null|array $include_path;
+    public null|Source $source;
+    public null|Dist $dist;
 }
