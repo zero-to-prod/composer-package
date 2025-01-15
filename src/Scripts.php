@@ -11,13 +11,13 @@ class Scripts
     use DataModel;
 
     /**
-     * Occurs before the install command is executed, contains one or more Class::method callables or shell commands.
+     * Occurs before the `install` command is executed, contains one or more Class::method callables or shell commands.
      *
      * @see $pre_install_cmd
      */
     public const pre_install_cmd = 'pre-install-cmd';
     /**
-     * Occurs after the install command is executed, contains one or more Class::method callables or shell commands.
+     * Occurs after the `install` command is executed, contains one or more Class::method callables or shell commands.
      *
      * @see $post_install_cmd
      */
@@ -106,10 +106,10 @@ class Scripts
      * @see $post_create_project_cmd
      */
     public const post_create_project_cmd = 'post-create-project-cmd';
-    /** Occurs before the install command is executed, contains one or more Class::method callables or shell commands. */
+    /** Occurs before the `install` command is executed, contains one or more Class::method callables or shell commands. */
     #[Describe(['from' => self::pre_install_cmd])]
     public null|array|string $pre_install_cmd = null;
-    /** Occurs after the install command is executed, contains one or more Class::method callables or shell commands. */
+    /** Occurs after the `install` command is executed, contains one or more Class::method callables or shell commands. */
     #[Describe(['from' => self::post_install_cmd])]
     public null|array|string $post_install_cmd = null;
     /** Occurs before the update command is executed, contains one or more Class::method callables or shell commands. */
