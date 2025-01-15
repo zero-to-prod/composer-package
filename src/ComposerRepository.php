@@ -26,13 +26,13 @@ class ComposerRepository
     public const allow_ssl_downgrade = 'allow_ssl_downgrade';
     /** @see $force_lazy_providers */
     public const force_lazy_providers = 'force-lazy-providers';
-    public ComposerRepositoryTypeEnum $type;
-    public string $url;
-    public bool $canonical;
-    public array $only;
-    public array $exclude;
-    public array $options;
-    public bool $allow_ssl_downgrade;
+    public null|ComposerRepositoryTypeEnum $type = null;
+    public null|string $url = null;
+    public null|bool $canonical = null;
+    public null|array $only = null;
+    public null|array $exclude = null;
+    public null|array $options = null;
+    public null|bool $allow_ssl_downgrade = null;
     #[Describe(['from' => self::force_lazy_providers])]
-    public bool $force_lazy_providers;
+    public null|bool $force_lazy_providers = null;
 }
