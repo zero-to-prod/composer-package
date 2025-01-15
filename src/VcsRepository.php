@@ -43,28 +43,28 @@ class VcsRepository
     public const p4user = 'p4user';
     /** @see $p4password */
     public const p4password = 'p4password';
-    public VcsRepositoryTypeEnum $type;
-    public string $url;
-    public bool $canonical;
-    public array $only;
-    public array $exclude;
+    public null|VcsRepositoryTypeEnum $type = null;
+    public null|string $url = null;
+    public null|bool $canonical = null;
+    public null|array $only = null;
+    public null|array $exclude = null;
     #[Describe(['from' => self::no_api])]
-    public bool $no_api;
+    public null|bool $no_api = null;
     #[Describe(['from' => self::secure_http])]
-    public bool $secure_http;
+    public null|bool $secure_http = null;
     #[Describe(['from' => self::svn_cache_credentials])]
-    public bool $svn_cache_credentials;
+    public null|bool $svn_cache_credentials = null;
     #[Describe(['from' => self::trunk_path])]
-    public string|bool $trunk_path;
+    public null|string|bool $trunk_path = null;
     #[Describe(['from' => self::branches_path])]
-    public string|bool $branches_path;
+    public null|string|bool $branches_path = null;
     #[Describe(['from' => self::tags_path])]
-    public string|bool $tags_path;
+    public null|string|bool $tags_path = null;
     #[Describe(['from' => self::package_path])]
-    public string $package_path;
-    public string $depot;
-    public string $branch;
-    public string $unique_perforce_client_name;
-    public string $p4user;
-    public string $p4password;
+    public null|string $package_path = null;
+    public null|string $depot = null;
+    public null|string $branch = null;
+    public null|string $unique_perforce_client_name = null;
+    public null|string $p4user = null;
+    public null|string $p4password = null;
 }
