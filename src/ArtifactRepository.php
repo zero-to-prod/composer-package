@@ -18,9 +18,9 @@ class ArtifactRepository
     public const only = 'only';
     /** @see $exclude */
     public const exclude = 'exclude';
-    public ArtifactRepositoryTypeEnum $type;
-    public string $url;
-    public bool $canonical;
-    public array $only;
-    public array $exclude;
+    public null|ArtifactRepositoryTypeEnum $type = null;
+    public null|string $url = null;
+    public null|bool $canonical = null;
+    public null|array $only = null;
+    public null|array $exclude = null;
 }
