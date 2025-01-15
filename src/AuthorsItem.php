@@ -33,11 +33,11 @@ class AuthorsItem
      */
     public const role = 'role';
     /** Full name of the author. */
-    public string $name;
+    public null|string $name = null;
     /** Email address of the author. */
-    public string $email;
+    public null|string $email = null;
     /** Homepage URL for the author. */
-    public string $homepage;
+    public null|string $homepage = null;
     /** Author's role in the project. */
-    public string $role;
+    public null|string $role = null;
 }
