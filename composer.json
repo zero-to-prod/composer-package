@@ -1,6 +1,6 @@
 {
     "name": "zero-to-prod/composer-package",
-    "description": "composer-package",
+    "description": "A DataModel representing a `composer.json` file",
     "license": "MIT",
     "type": "library",
     "keywords": ["zero-to-prod", "composer-package"],
