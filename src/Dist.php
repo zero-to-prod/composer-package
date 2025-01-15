@@ -18,9 +18,9 @@ class Dist
     public const shasum = 'shasum';
     /** @see $mirrors */
     public const mirrors = 'mirrors';
-    public string $type;
-    public string $url;
-    public string $reference;
-    public string $shasum;
-    public array $mirrors;
+    public null|string $type = null;
+    public null|string $url = null;
+    public null|string $reference = null;
+    public null|string $shasum = null;
+    public null|array $mirrors = null;
 }
