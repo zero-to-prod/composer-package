@@ -21,7 +21,7 @@ class FundingItem
      */
     public const url = 'url';
     /** Type of funding or platform through which funding is possible. */
-    public string $type;
+    public null|string $type = null;
     /** URL to a website with details on funding and a way to fund the package. */
-    public string $url;
+    public null|string $url = null;
 }
