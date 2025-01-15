@@ -28,10 +28,10 @@ class ConfigureOptionsItem
      */
     public const description = 'description';
     /** The name of the flag, this would typically be prefixed with `--`, for example, the value 'the-flag' would be passed as `./configure --the-flag`. */
-    public string $name;
+    public null|string $name = null;
     /** If this is set to true, the flag needs a value (e.g. --with-somelib=<path>), otherwise it is a flag without a value (e.g. --enable-some-feature). */
     #[Describe(['from' => self::needs_value])]
-    public bool $needs_value;
+    public null|bool $needs_value = null;
     /** The description of what the flag does or means. */
-    public string $description;
+    public null|string $description = null;
 }
