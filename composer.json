@@ -3,7 +3,7 @@
     "description": "A DataModel representing a `composer.json` file",
     "license": "MIT",
     "type": "library",
-    "keywords": ["zero-to-prod", "composer-package"],
+    "keywords": ["zero-to-prod", "composer-package", "DataModel", "Data Model"],
     "readme": "./README.md",
     "time": "2025-01-14",
     "authors": [
