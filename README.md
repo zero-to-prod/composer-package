@@ -22,11 +22,11 @@
 
 ## Introduction
 
-
+Creates a [DataModel](https://github.com/zero-to-prod/data-model) representation of a `composer.json` file.
 
 ## Requirements
 
-- PHP 7.1 or higher.
+- PHP 8.1 or higher.
 
 ## Installation
 
@@ -40,7 +40,13 @@ This will add the package to your project’s dependencies and create an autoloa
 
 ## Usage
 
+Create a [DataModel](https://github.com/zero-to-prod/data-model) from a `composer.json` file like this:
 
+```php
+use Zerotoprod\ComposerPackage\ComposerPackage;
+
+$ComposerPackage = ComposerPackage::from(json_decode(file_get_contents(__DIR__ . 'composer.json'), true));
+```
 
 ## Contributing
 
