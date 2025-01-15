@@ -2,7 +2,6 @@
 
 namespace Zerotoprod\ComposerPackage;
 
-use Vendor\Package\BitbucketOauth;
 use Zerotoprod\DataModel\DataModel;
 use Zerotoprod\DataModel\Describe;
 use Zerotoprod\DataModelHelper\DataModelHelper;
