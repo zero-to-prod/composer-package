@@ -10,6 +10,7 @@ use Zerotoprod\DataModelHelper\DataModelHelper;
 class PhpExt
 {
     use DataModel;
+    use DataModelHelper;
 
     /**
      * If specified, this will be used as the name of the extension, where needed by tooling. If this is not specified, the extension name will be derived from the Composer package name (e.g. `vendor/name` would become `ext-name`). The extension name may be specified with or without the `ext-` prefix, and tools that use this must normalise this appropriately.
@@ -61,37 +62,37 @@ class PhpExt
     public const configure_options = 'configure-options';
     /** If specified, this will be used as the name of the extension, where needed by tooling. If this is not specified, the extension name will be derived from the Composer package name (e.g. `vendor/name` would become `ext-name`). The extension name may be specified with or without the `ext-` prefix, and tools that use this must normalise this appropriately. */
     #[Describe(['from' => self::extension_name])]
-    public string $extension_name;
+    public null|string $extension_name = null;
     /** This is used to add a prefix to the INI file, e.g. `90-xdebug.ini` which affects the loading order. The priority is a number in the range 10-99 inclusive, with 10 being the highest priority (i.e. will be processed first), and 99 being the lowest priority (i.e. will be processed last). There are two digits so that the files sort correctly on any platform, whether the sorting is natural or not. */
-    public int $priority;
+    public null|int $priority = null;
     /** Does this package support Zend Thread Safety */
     #[Describe(['from' => self::support_zts])]
-    public bool $support_zts;
+    public null|bool $support_zts = null;
     /** Does this package support non-Thread Safe mode */
     #[Describe(['from' => self::support_nts])]
-    public bool $support_nts;
+    public null|bool $support_nts = null;
     /** If specified, this is the subdirectory that will be used to build the extension instead of the root of the project. */
     #[Describe(['from' => self::build_path])]
-    public string|null $build_path;
+    public null|string $build_path = null;
     /**
      * An array of OS families to mark as compatible with the extension. Specifying this property will mean this package is not installable with PIE on any OS family not listed here. Must not be specified alongside os-families-exclude.
      *
      * @var OsFamiliesEnum[]
      */
-    #[Describe(['from' => self::os_families, 'cast' => [DataModelHelper::class, 'mapOf'], 'type' => OsFamiliesEnum::class])]
-    public array $os_families;
+    #[Describe(['from' => self::os_families, 'cast' => [self::class, 'mapOf'], 'type' => OsFamiliesEnum::class])]
+    public array $os_families = [];
     /**
      * An array of OS families to mark as incompatible with the extension. Specifying this property will mean this package is installable on any OS family except those listed here. Must not be specified alongside os-families.
      *
      * @var OsFamiliesExcludeEnum[]
      */
-    #[Describe(['from' => self::os_families_exclude, 'cast' => [DataModelHelper::class, 'mapOf'], 'type' => OsFamiliesExcludeEnum::class])]
-    public array $os_families_exclude;
+    #[Describe(['from' => self::os_families_exclude, 'cast' => [self::class, 'mapOf'], 'type' => OsFamiliesExcludeEnum::class])]
+    public array $os_families_exclude = [];
     /**
      * These configure options make up the flags that can be passed to ./configure when installing the extension.
      *
      * @var array<int, ConfigureOptionsItem>
      */
-    #[Describe(['from' => self::configure_options, 'cast' => [DataModelHelper::class, 'mapOf'], 'type' => ConfigureOptionsItem::class])]
-    public array $configure_options;
+    #[Describe(['from' => self::configure_options, 'cast' => [self::class, 'mapOf'], 'type' => ConfigureOptionsItem::class])]
+    public array $configure_options = [];
 }
