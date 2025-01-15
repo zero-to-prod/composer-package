@@ -2,7 +2,6 @@
 
 namespace Zerotoprod\ComposerPackage;
 
-use Tests\generated\Options;
 use Zerotoprod\DataModel\DataModel;
 
 class PathRepository
