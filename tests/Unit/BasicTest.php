@@ -10,6 +10,7 @@ use Zerotoprod\ComposerPackage\ArtifactRepositoryTypeEnum;
 use Zerotoprod\ComposerPackage\AuthorsItem;
 use Zerotoprod\ComposerPackage\Autoload;
 use Zerotoprod\ComposerPackage\AutoloadDev;
+use Zerotoprod\ComposerPackage\BinCompatEnum;
 use Zerotoprod\ComposerPackage\ComposerPackage;
 use Zerotoprod\ComposerPackage\ComposerRepository;
 use Zerotoprod\ComposerPackage\ComposerRepositoryTypeEnum;
@@ -17,6 +18,8 @@ use Zerotoprod\ComposerPackage\Config;
 use Zerotoprod\ComposerPackage\ConfigureOptionsItem;
 use Zerotoprod\ComposerPackage\Dist;
 use Zerotoprod\ComposerPackage\FundingItem;
+use Zerotoprod\ComposerPackage\GitlabProtocolEnum;
+use Zerotoprod\ComposerPackage\HttpBasic;
 use Zerotoprod\ComposerPackage\MinimumStabilityEnum;
 use Zerotoprod\ComposerPackage\OsFamiliesEnum;
 use Zerotoprod\ComposerPackage\OsFamiliesExcludeEnum;
@@ -163,15 +166,15 @@ class BasicTest extends TestCase
             ComposerPackage::minimum_stability => 'stable',
             ComposerPackage::prefer_stable => true,
             ComposerPackage::autoload => [
-                Autoload::psr_0 => ["Vendor\\Package\\" => "src/"],
-                Autoload::psr_4 => ["Vendor\\Package\\" => "src/"],
+                Autoload::psr_0 => ['Vendor\\Package\\' => 'src/'],
+                Autoload::psr_4 => ['Vendor\\Package\\' => 'src/'],
                 Autoload::classmap => ['.'],
                 Autoload::files => ['.'],
                 Autoload::exclude_from_classmap => ['.'],
             ],
             ComposerPackage::autoload_dev => [
-                AutoloadDev::psr_0 => ["Vendor\\Package\\" => "src/"],
-                AutoloadDev::psr_4 => ["Vendor\\Package\\" => "src/"],
+                AutoloadDev::psr_0 => ['Vendor\\Package\\' => 'src/'],
+                AutoloadDev::psr_4 => ['Vendor\\Package\\' => 'src/'],
                 AutoloadDev::classmap => ['.'],
                 AutoloadDev::files => ['.'],
             ],
@@ -204,11 +207,58 @@ class BasicTest extends TestCase
             ],
             ComposerPackage::config => [
                 Config::platform => ['php' => '7.0.3', 'ext-something' => '4.0.3'],
+                Config::allow_plugins => ['third-party/required-plugin' => true],
+                Config::process_timeout => 2,
+                Config::use_include_path => true,
+                Config::use_parent_dir => true,
+                Config::preferred_install => ['my-organization/stable-package' => 'dist'],
                 Config::audit => [
                     'ignore' => [
                         'CVE-1234' => 'The affected component is not in use.'
+                    ],
+                    'abandoned' => 'ignore'
+                ],
+                Config::notify_on_install => true,
+                Config::github_protocols => ['https', 'ssh', 'git'],
+                Config::github_oauth => ['github.com' => 'oauthtoken'],
+                Config::gitlab_oauth => ['gitlab.com' => 'oauthtoken'],
+                Config::gitlab_token => ["gitlab.com" => ["username" => "gitlabuser", "token" => "privatetoken"]],
+                Config::gitlab_protocol => GitlabProtocolEnum::http->value,
+                Config::bearer => ["example.org" => "foo"],
+                Config::disable_tls => true,
+                Config::secure_http => true,
+                Config::secure_svn_domains => ['example.org'],
+                Config::cafile => Config::cafile,
+                Config::capath => Config::capath,
+                Config::http_basic => [
+                    'example.org' => [
+                        HttpBasic::username => 'alice',
+                        HttpBasic::password => 'foo',
                     ]
-                ]
+                ],
+                Config::store_auths => Config::store_auths,
+                Config::vendor_dir => Config::vendor_dir,
+                Config::bin_dir => Config::bin_dir,
+                Config::data_dir => Config::data_dir,
+                Config::cache_dir => Config::cache_dir,
+                Config::cache_files_dir => Config::cache_files_dir,
+                Config::cache_repo_dir => Config::cache_repo_dir,
+                Config::cache_vcs_dir => Config::cache_vcs_dir,
+                Config::cache_ttl => 1,
+                Config::cache_files_ttl => 1,
+                Config::cache_files_maxsize => Config::cache_files_maxsize,
+                Config::cache_read_only => true,
+                Config::bin_compat => BinCompatEnum::symlink->value,
+                Config::discard_changes => true,
+                Config::autoloader_suffix => Config::autoloader_suffix,
+                Config::optimize_autoloader => true,
+                Config::prepend_autoloader => true,
+                Config::classmap_authoritative => true,
+                Config::apcu_autoloader => true,
+                Config::github_domains => ['https://example.org'],
+                Config::github_expose_hostname => true,
+                Config::gitlab_domains => ['https://example.org'],
+
             ],
             ComposerPackage::extra => [
                 'laravel' => [
@@ -241,7 +291,52 @@ class BasicTest extends TestCase
             ]
         ]);
 
+        self::assertEquals(['third-party/required-plugin' => true], $ComposerPackage->config->allow_plugins);
+        self::assertEquals(2, $ComposerPackage->config->process_timeout);
+        self::assertTrue($ComposerPackage->config->use_include_path);
+        self::assertTrue($ComposerPackage->config->use_parent_dir);
+        self::assertEquals(['my-organization/stable-package' => 'dist'], $ComposerPackage->config->preferred_install);
         self::assertEquals(['CVE-1234' => 'The affected component is not in use.'], $ComposerPackage->config->audit['ignore']);
+        self::assertEquals('ignore', $ComposerPackage->config->audit['abandoned']);
+        self::assertTrue($ComposerPackage->config->notify_on_install);
+        self::assertEquals(['https', 'ssh', 'git'], $ComposerPackage->config->github_protocols);
+        self::assertEquals(['github.com' => 'oauthtoken'], $ComposerPackage->config->github_oauth);
+        self::assertEquals(['gitlab.com' => 'oauthtoken'], $ComposerPackage->config->gitlab_oauth);
+        self::assertEquals(["gitlab.com" => ["username" => "gitlabuser", "token" => "privatetoken"]], $ComposerPackage->config->gitlab_token);
+        self::assertEquals(GitlabProtocolEnum::http, $ComposerPackage->config->gitlab_protocol);
+        self::assertEquals(["example.org" => "foo"], $ComposerPackage->config->bearer);
+        self::assertTrue($ComposerPackage->config->disable_tls);
+        self::assertTrue($ComposerPackage->config->secure_http);
+        self::assertEquals(['example.org'], $ComposerPackage->config->secure_svn_domains);
+        self::assertEquals(Config::cafile, $ComposerPackage->config->cafile);
+        self::assertEquals(Config::capath, $ComposerPackage->config->capath);
+        self::assertInstanceOf(HttpBasic::class, $ComposerPackage->config->http_basic['example.org']);
+        self::assertEquals('alice', $ComposerPackage->config->http_basic['example.org']->username);
+        self::assertEquals('foo', $ComposerPackage->config->http_basic['example.org']->password);
+        self::assertEquals(Config::store_auths, $ComposerPackage->config->store_auths);
+        self::assertEquals(Config::vendor_dir, $ComposerPackage->config->vendor_dir);
+        self::assertEquals(Config::bin_dir, $ComposerPackage->config->bin_dir);
+        self::assertEquals(Config::data_dir, $ComposerPackage->config->data_dir);
+        self::assertEquals(Config::cache_dir, $ComposerPackage->config->cache_dir);
+        self::assertEquals(Config::cache_files_dir, $ComposerPackage->config->cache_files_dir);
+        self::assertEquals(Config::cache_repo_dir, $ComposerPackage->config->cache_repo_dir);
+        self::assertEquals(Config::cache_vcs_dir, $ComposerPackage->config->cache_vcs_dir);
+        self::assertEquals(1, $ComposerPackage->config->cache_ttl);
+        self::assertEquals(1, $ComposerPackage->config->cache_files_ttl);
+        self::assertEquals(Config::cache_files_maxsize, $ComposerPackage->config->cache_files_maxsize);
+        self::assertTrue($ComposerPackage->config->cache_read_only);
+        self::assertEquals(BinCompatEnum::symlink, $ComposerPackage->config->bin_compat);
+        self::assertTrue($ComposerPackage->config->discard_changes);
+        self::assertEquals(Config::autoloader_suffix, $ComposerPackage->config->autoloader_suffix);
+        self::assertTrue($ComposerPackage->config->optimize_autoloader);
+        self::assertTrue($ComposerPackage->config->prepend_autoloader);
+        self::assertTrue($ComposerPackage->config->classmap_authoritative);
+        self::assertTrue($ComposerPackage->config->apcu_autoloader);
+        self::assertEquals(['https://example.org'], $ComposerPackage->config->github_domains);
+        self::assertTrue($ComposerPackage->config->github_expose_hostname);
+        self::assertEquals(['https://example.org'], $ComposerPackage->config->gitlab_domains);
+//        self::assertEquals(['https://example.org'], $ComposerPackage->config->bitbucket_oauth);
+
 
         self::assertEquals('zero-to-prod/composer-package', $ComposerPackage->name);
         self::assertEquals('description', $ComposerPackage->description);
@@ -345,13 +440,13 @@ class BasicTest extends TestCase
         self::assertEquals('https://github.com/zero-to-prod/composer-package', $ComposerPackage->repositories[0]->url);
         self::assertEquals(MinimumStabilityEnum::stable, $ComposerPackage->minimum_stability);
         self::assertTrue($ComposerPackage->prefer_stable);
-        self::assertEquals('src/', $ComposerPackage->autoload->psr_0["Vendor\\Package\\"]);
-        self::assertEquals('src/', $ComposerPackage->autoload->psr_4["Vendor\\Package\\"]);
+        self::assertEquals('src/', $ComposerPackage->autoload->psr_0['Vendor\\Package\\']);
+        self::assertEquals('src/', $ComposerPackage->autoload->psr_4['Vendor\\Package\\']);
         self::assertEquals('.', $ComposerPackage->autoload->classmap[0]);
         self::assertEquals('.', $ComposerPackage->autoload->files[0]);
         self::assertEquals('.', $ComposerPackage->autoload->exclude_from_classmap[0]);
-        self::assertEquals('src/', $ComposerPackage->autoload_dev->psr_0["Vendor\\Package\\"]);
-        self::assertEquals('src/', $ComposerPackage->autoload_dev->psr_4["Vendor\\Package\\"]);
+        self::assertEquals('src/', $ComposerPackage->autoload_dev->psr_0['Vendor\\Package\\']);
+        self::assertEquals('src/', $ComposerPackage->autoload_dev->psr_4['Vendor\\Package\\']);
         self::assertEquals('.', $ComposerPackage->autoload_dev->classmap[0]);
         self::assertEquals('.', $ComposerPackage->autoload_dev->files[0]);
         self::assertEquals('/target/dir', $ComposerPackage->target_dir);
