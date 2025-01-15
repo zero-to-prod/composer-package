@@ -68,7 +68,7 @@ class ComposerPackage
      */
     public const readme = 'readme';
     /**
-     * Package release date, in 'YYYY-MM-DD', 'YYYY-MM-DD HH:MM:SS' or 'YYYY-MM-DDTHH:MM:SSZ' format.
+     * Package release date, in `YYYY-MM-DD`, `YYYY-MM-DD HH:MM:SS` or `YYYY-MM-DDTHH:MM:SSZ` format.
      *
      * @see $time
      */
