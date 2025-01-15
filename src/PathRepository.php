@@ -21,10 +21,10 @@ class PathRepository
     public const exclude = 'exclude';
     /** @see $options */
     public const options = 'options';
-    public PathRepositoryTypeEnum $type;
-    public string $url;
-    public bool $canonical;
-    public array $only;
-    public array $exclude;
-    public PathRepositoryOptions $options;
+    public null|PathRepositoryTypeEnum $type = null;
+    public null|string $url = null;
+    public null|bool $canonical = null;
+    public null|array $only = null;
+    public null|array $exclude = null;
+    public null|PathRepositoryOptions $options = null;
 }
