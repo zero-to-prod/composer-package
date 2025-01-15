@@ -1,15 +1,15 @@
-# Zerotoprod\:package_namespace
+# Zerotoprod\ComposerPackage
 
 ![](art/logo.png)
 
-[![Repo](https://img.shields.io/badge/github-gray?logo=github)](https://github.com/zero-to-prod/:package_slug)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/zero-to-prod/:package_slug/test.yml?label=tests)](https://github.com/zero-to-prod/:package_slug/actions)
-[![Packagist Downloads](https://img.shields.io/packagist/dt/zero-to-prod/:package_slug?color=blue)](https://packagist.org/packages/zero-to-prod/:package_slug/stats)
-[![php](https://img.shields.io/packagist/php-v/zero-to-prod/:package_slug.svg?color=purple)](https://packagist.org/packages/zero-to-prod/:package_slug/stats)
-[![Packagist Version](https://img.shields.io/packagist/v/zero-to-prod/:package_slug?color=f28d1a)](https://packagist.org/packages/zero-to-prod/:package_slug)
-[![License](https://img.shields.io/packagist/l/zero-to-prod/:package_slug?color=pink)](https://github.com/zero-to-prod/:package_slug/blob/main/LICENSE.md)
-[![wakatime](https://wakatime.com/badge/github/zero-to-prod/:package_slug.svg)](https://wakatime.com/badge/github/zero-to-prod/:package_slug)
-[![Hits-of-Code](https://hitsofcode.com/github/zero-to-prod/:package_slug?branch=main)](https://hitsofcode.com/github/zero-to-prod/:package_slug/view?branch=main)
+[![Repo](https://img.shields.io/badge/github-gray?logo=github)](https://github.com/zero-to-prod/composer-package)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/zero-to-prod/composer-package/test.yml?label=tests)](https://github.com/zero-to-prod/composer-package/actions)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/zero-to-prod/composer-package?color=blue)](https://packagist.org/packages/zero-to-prod/composer-package/stats)
+[![php](https://img.shields.io/packagist/php-v/zero-to-prod/composer-package.svg?color=purple)](https://packagist.org/packages/zero-to-prod/composer-package/stats)
+[![Packagist Version](https://img.shields.io/packagist/v/zero-to-prod/composer-package?color=f28d1a)](https://packagist.org/packages/zero-to-prod/composer-package)
+[![License](https://img.shields.io/packagist/l/zero-to-prod/composer-package?color=pink)](https://github.com/zero-to-prod/composer-package/blob/main/LICENSE.md)
+[![wakatime](https://wakatime.com/badge/github/zero-to-prod/composer-package.svg)](https://wakatime.com/badge/github/zero-to-prod/composer-package)
+[![Hits-of-Code](https://hitsofcode.com/github/zero-to-prod/composer-package?branch=main)](https://hitsofcode.com/github/zero-to-prod/composer-package/view?branch=main)
 
 ## Contents
 
@@ -22,30 +22,36 @@
 
 ## Introduction
 
-
+Creates a [DataModel](https://github.com/zero-to-prod/data-model) representation of a `composer.json` file.
 
 ## Requirements
 
-- PHP 7.1 or higher.
+- PHP 8.1 or higher.
 
 ## Installation
 
-Install `Zerotoprod\:package_namespace` via [Composer](https://getcomposer.org/):
+Install `Zerotoprod\ComposerPackage` via [Composer](https://getcomposer.org/):
 
 ```bash
-composer require zero-to-prod/:package_slug
+composer require zero-to-prod/composer-package
 ```
 
 This will add the package to your project’s dependencies and create an autoloader entry for it.
 
 ## Usage
 
+Create a [DataModel](https://github.com/zero-to-prod/data-model) from a `composer.json` file like this:
 
+```php
+use Zerotoprod\ComposerPackage\ComposerPackage;
+
+$ComposerPackage = ComposerPackage::from(json_decode(file_get_contents(__DIR__ . 'composer.json'), true));
+```
 
 ## Contributing
 
 Contributions, issues, and feature requests are welcome!
-Feel free to check the [issues](https://github.com/zero-to-prod/:package_slug/issues) page if you want to contribute.
+Feel free to check the [issues](https://github.com/zero-to-prod/composer-package/issues) page if you want to contribute.
 
 1. Fork the repository.
 2. Create a new branch (`git checkout -b feature-branch`).
