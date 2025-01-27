@@ -3,7 +3,7 @@
 ![](art/logo.png)
 
 [![Repo](https://img.shields.io/badge/github-gray?logo=github)](https://github.com/zero-to-prod/composer-package)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/zero-to-prod/composer-package/test.yml?label=tests)](https://github.com/zero-to-prod/composer-package/actions)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/zero-to-prod/composer-package/test.yml?label=test)](https://github.com/zero-to-prod/composer-package/actions)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/zero-to-prod/composer-package?color=blue)](https://packagist.org/packages/zero-to-prod/composer-package/stats)
 [![php](https://img.shields.io/packagist/php-v/zero-to-prod/composer-package.svg?color=purple)](https://packagist.org/packages/zero-to-prod/composer-package/stats)
 [![Packagist Version](https://img.shields.io/packagist/v/zero-to-prod/composer-package?color=f28d1a)](https://packagist.org/packages/zero-to-prod/composer-package)
