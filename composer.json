@@ -34,7 +34,7 @@
         "zero-to-prod/data-model-helper": "^81.11"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "<12.0"
     },
     "autoload": {
         "psr-4": {
