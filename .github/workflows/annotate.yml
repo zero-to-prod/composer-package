@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
+          fetch-depth: 0
 
       - name: Install jq
         run: sudo apt-get install -y jq
@@ -37,9 +38,8 @@ jobs:
 
       - name: Create new branch
         run: |
-          branch_name="update-docblocks-$(date +%Y%m%d-%H%M%S)"
-          git checkout -b $branch_name
-          echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
+          git checkout -b update-docblocks-$(date +%Y%m%d-%H%M%S)
+          echo "BRANCH_NAME=$(git branch --show-current)" >> $GITHUB_ENV
 
       - name: Run DocBlock Annotator
         run: docker run -v ${{ github.workspace }}/src:/app/run --rm davidsmith3/docblock-annotator-cli docblock-annotator-cli:update /app/run "@link ${{ steps.composer.outputs.homepage }}"
@@ -68,6 +68,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: 'Update docblocks'
-          body: 'Automated PR to update docblocks with homepage links'
+          body: |
+            Automated PR to update docblocks with homepage links
+            
+            Changes made by docblock-annotator-cli to add @link annotations.
           branch: ${{ env.BRANCH_NAME }}
           base: ${{ github.ref_name }}
+          delete-branch: true
