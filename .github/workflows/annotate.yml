@@ -70,8 +70,9 @@ jobs:
           title: 'Update docblocks'
           body: |
             Automated PR to update docblocks with homepage links
-            
+
             Changes made by docblock-annotator-cli to add @link annotations.
           branch: ${{ env.BRANCH_NAME }}
-          base: ${{ github.ref_name }}
+          base: main
           delete-branch: true
+          update-branch: false
