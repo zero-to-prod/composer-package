@@ -74,5 +74,3 @@ jobs:
             Changes made by docblock-annotator-cli to add @link annotations.
           branch: ${{ env.BRANCH_NAME }}
           base: main
-          delete-branch: true
-          update-branch: false
