@@ -31,7 +31,7 @@
     "require": {
         "php": ">=8.1",
         "zero-to-prod/data-model": "^81.9",
-        "zero-to-prod/data-model-helper": "^81.11"
+        "zero-to-prod/data-model-helper": "^81.11 || ^82.0"
     },
     "require-dev": {
         "phpunit/phpunit": "<12.0"
