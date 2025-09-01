@@ -8,6 +8,7 @@ use Zerotoprod\DataModelHelper\DataModelHelper;
 
 /**
  * @link https://github.com/zero-to-prod/composer-package
+ * A DataModel representing a `composer.json` file
  */
 class ComposerPackage
 {
